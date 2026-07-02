@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# WXT build output
+.wxt/
+.output/
+
+# Test coverage
+coverage/
+
+# OS / editor
+.DS_Store
+*.log
+.idea/
+.vscode/
+*.tsbuildinfo
+
+# Local env
+.env
+.env.local

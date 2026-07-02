@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TCFilter 设置</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <!-- 侧边导航 -->
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <span class="logo">🛡️</span>
+          <span>TCFilter</span>
+        </div>
+        <nav class="nav">
+          <button class="nav-item active" data-tab="rules">📋 规则</button>
+          <button class="nav-item" data-tab="whitelist">👥 白名单</button>
+          <button class="nav-item" data-tab="ai">
+            🤖 AI 挖掘
+            <span class="badge" id="aiBadge" hidden></span>
+          </button>
+          <button class="nav-item" data-tab="stats">📊 统计</button>
+          <button class="nav-item" data-tab="data">💾 数据</button>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="muted" id="versionInfo">v0.1.0</div>
+          <div class="muted" id="ruleCountInfo">规则 0 条</div>
+        </div>
+      </aside>
+
+      <!-- 内容区 -->
+      <main class="content">
+        <!-- Tab 1: 规则 -->
+        <section class="tab-panel active" id="tab-rules">
+          <h1>规则管理</h1>
+          <p class="hint">关键词命中即屏蔽。英文按词边界（sex≠Sussex），中文按子串。误伤可改用正则或加白名单。</p>
+
+          <div class="add-row">
+            <input type="text" id="newKeyword" placeholder="输入关键词，回车添加" />
+            <select id="newCategory">
+              <option value="custom">自定义</option>
+              <option value="porn">色情</option>
+              <option value="gambling">博彩</option>
+              <option value="promo">推广</option>
+              <option value="spam">垃圾</option>
+            </select>
+            <button id="addBtn" class="btn">添加</button>
+          </div>
+
+          <div class="filter-bar">
+            <span class="filter-label">活跃规则 (<span id="ruleCount">0</span>)</span>
+            <div class="filter-tabs" id="categoryFilter">
+              <button class="filter-tab active" data-cat="all">全部</button>
+              <button class="filter-tab" data-cat="porn">色情</button>
+              <button class="filter-tab" data-cat="gambling">博彩</button>
+              <button class="filter-tab" data-cat="promo">推广</button>
+              <button class="filter-tab" data-cat="spam">垃圾</button>
+            </div>
+          </div>
+          <div id="keywordList" class="rule-list"></div>
+
+          <div class="source-dist" id="sourceDist"></div>
+        </section>
+
+        <!-- Tab 2: 白名单 -->
+        <section class="tab-panel" id="tab-whitelist">
+          <h1>白名单用户</h1>
+          <p class="hint">这些 @handle 永不屏蔽（不带 @）。</p>
+          <div class="add-row">
+            <input type="text" id="newWhitelist" placeholder="如 gooduser" />
+            <button id="addWhitelistBtn" class="btn">添加</button>
+          </div>
+          <div id="whitelistList" class="tag-list"></div>
+        </section>
+
+        <!-- Tab 3: AI 挖掘 -->
+        <section class="tab-panel" id="tab-ai">
+          <h1>AI 规则挖掘</h1>
+          <p class="hint">让 AI 从可疑评论中归纳新屏蔽规则，需你确认后生效。</p>
+
+          <!-- 候选确认（置顶） -->
+          <div class="card" id="candidatesCard">
+            <div class="card-title">待确认候选 (<span id="candidateCount">0</span>)</div>
+            <div id="candidatesList"></div>
+            <button id="mineBtn" class="btn">立即挖掘</button>
+          </div>
+
+          <!-- 后端设置（置底） -->
+          <div class="card">
+            <div class="card-title">后端设置</div>
+            <div class="form-row">
+              <label>挖掘引擎</label>
+              <select id="aiBackend">
+                <option value="none">关闭（纯本地规则）</option>
+                <option value="cloud">云端大模型（DeepSeek/OpenAI）</option>
+                <option value="local-chrome">Chrome 内置 AI（Gemini Nano，零下载）</option>
+                <option value="local-webllm">本地 WebLLM（开源模型，需下载）</option>
+              </select>
+            </div>
+            <div class="form-row" id="localModelRow" hidden>
+              <label>本地模型</label>
+              <select id="localModel">
+                <option value="qwen2.5-0.5b">Qwen2.5 0.5B（推荐，中英，~500MB）</option>
+                <option value="qwen3-0.6b">Qwen3 0.6B（~600MB）</option>
+                <option value="gemma-270m">Gemma 270M（最轻量，~240MB）</option>
+              </select>
+            </div>
+            <div class="form-row" id="checkRow" hidden>
+              <button id="checkBtn" class="btn ghost">检测本地环境</button>
+              <span class="hint" id="localStatus"></span>
+            </div>
+            <div class="form-row" id="cloudConfig" hidden>
+              <label>Provider</label>
+              <select id="cloudProvider">
+                <option value="deepseek">DeepSeek</option>
+                <option value="openai">OpenAI</option>
+                <option value="custom">自定义</option>
+              </select>
+            </div>
+            <div class="form-row" id="endpointRow" hidden>
+              <label>自定义 Endpoint</label>
+              <input type="text" id="cloudEndpoint" placeholder="https://..." />
+            </div>
+            <div class="form-row" id="apiKeyRow" hidden>
+              <label>API Key</label>
+              <input type="password" id="cloudApiKey" placeholder="sk-..." />
+            </div>
+            <div class="form-row" id="intervalRow" hidden>
+              <label>挖掘间隔(分钟)</label>
+              <input type="number" id="miningInterval" min="5" max="1440" value="30" />
+            </div>
+            <button id="saveAiBtn" class="btn">保存设置</button>
+            <span class="hint" id="aiStatus"></span>
+          </div>
+        </section>
+
+        <!-- Tab 4: 统计 -->
+        <section class="tab-panel" id="tab-stats">
+          <h1>过滤统计</h1>
+          <div class="stat-grid" id="statGrid"></div>
+          <h2>按类别分布</h2>
+          <div id="distBars"></div>
+          <button id="resetStatsBtn" class="btn ghost danger">重置统计</button>
+        </section>
+
+        <!-- Tab 5: 数据 -->
+        <section class="tab-panel" id="tab-data">
+          <h1>数据管理</h1>
+          <div class="card">
+            <div class="card-title">导入 / 导出</div>
+            <div class="btn-row">
+              <button id="exportBtn" class="btn ghost">⬇ 导出全部规则 (JSON)</button>
+              <button id="exportTxtBtn" class="btn ghost">⬇ 导出词库 (TXT)</button>
+            </div>
+            <div class="btn-row">
+              <button id="importBtn" class="btn ghost">⬆ 导入（JSON 或 TXT）</button>
+              <input type="file" id="importFile" accept=".json,.txt" hidden />
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">命中历史（最近 200 条）<button id="clearHistoryBtn" class="btn-text danger">清空</button></div>
+            <div class="history-table" id="historyTable"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

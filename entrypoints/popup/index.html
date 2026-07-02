@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TCFilter</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- 头部：品牌 + 总开关 -->
+      <header>
+        <div class="brand">
+          <span class="logo">🛡️</span>
+          <div class="brand-text">
+            <div class="brand-name">TCFilter</div>
+            <div class="brand-sub">推特评论净化</div>
+          </div>
+        </div>
+        <label class="switch" title="总开关">
+          <input type="checkbox" id="enabled" />
+          <span class="slider"></span>
+        </label>
+      </header>
+
+      <!-- 双卡统计 -->
+      <section class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-num" id="totalBlocked">0</div>
+          <div class="stat-label">总屏蔽</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num accent" id="todayBlocked">0</div>
+          <div class="stat-label">今日</div>
+        </div>
+      </section>
+
+      <!-- 当前页面状态条 -->
+      <section class="status-bar" id="statusBar">
+        <span class="status-dot" id="statusDot"></span>
+        <span class="status-text" id="statusText">正在保护 · 加载中…</span>
+      </section>
+
+      <!-- 快捷设置 -->
+      <section class="quick-settings">
+        <div class="setting-title">快捷设置</div>
+        <div class="row">
+          <label for="scope">过滤范围</label>
+          <select id="scope">
+            <option value="comments">仅评论区</option>
+            <option value="all">评论 + 时间线</option>
+          </select>
+        </div>
+        <div class="row">
+          <label for="action">屏蔽方式</label>
+          <select id="action">
+            <option value="fold">折叠可展开</option>
+            <option value="hide">直接隐藏</option>
+            <option value="blur">模糊 + 蒙层</option>
+          </select>
+        </div>
+        <div class="row checkbox">
+          <label><input type="checkbox" id="checkUsername" /> 同时过滤用户名</label>
+        </div>
+
+        <!-- 低频项折叠 -->
+        <details class="advanced">
+          <summary>高级（试运行 / 调试）</summary>
+          <div class="row checkbox">
+            <label><input type="checkbox" id="dryRun" /> 试运行（只标记不屏蔽）</label>
+          </div>
+          <div class="row checkbox">
+            <label><input type="checkbox" id="debug" /> 调试日志</label>
+          </div>
+        </details>
+      </section>
+
+      <!-- 操作 -->
+      <section class="actions">
+        <button id="syncBtn" class="btn ghost">🔄 同步词库</button>
+        <button id="openOptions" class="btn ghost">⚙ 完整设置 →</button>
+      </section>
+
+      <footer>
+        <span id="syncStatus" class="muted"></span>
+      </footer>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

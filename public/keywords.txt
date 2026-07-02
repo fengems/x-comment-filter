@@ -1,0 +1,76 @@
+# TCFilter 内置默认词库
+# 格式：每行一个关键词，# 开头为注释，空行忽略。
+# 行内标注：`关键词 #category=类别` 指定类别（porn/gambling/promo/spam）。
+# 关键词默认 wordBoundary 匹配（拉丁词用 \b 防误伤，中文退化为子串）。
+# 误伤风险高的词请谨慎添加，或配 whitelist 兜底。
+#
+# 此文件随扩展分发；用户可在设置页自定义词库，也支持云端同步（GitHub CDN）。
+
+# ===== 色情引流类（porn） =====
+约炮 #category=porn
+同城约 #category=porn
+约妹 #category=porn
+找妹子 #category=porn
+上门服务 #category=porn
+出台 #category=porn
+无套 #category=porn
+兼职妹妹 #category=porn
+模特兼职 #category=porn
+外围 #category=porn
+包夜 #category=porn
+可约 #category=porn
+同城约爱 #category=porn
+约爱 #category=porn
+找小姐姐 #category=porn
+妹妹陪你 #category=porn
+大尺度 #category=porn
+裸聊 #category=porn
+一对一视频 #category=porn
+真人直播 #category=porn
+
+# ===== 联系方式导流（spam）—— 用正则更准，这里放高频话术 =====
+加微信 #category=spam
+加vx #category=spam
+加wx #category=spam
+加qq #category=spam
+加飞机 #category=spam
+主页有惊喜 #category=spam
+看主页 #category=spam
+私我 #category=spam
+私信我 #category=spam
+滴滴我 #category=spam
+扫码 #category=spam
+
+# ===== 博彩类（gambling） =====
+澳门赌场 #category=gambling
+威尼斯人 #category=gambling
+太阳城 #category=gambling
+外围彩票 #category=gambling
+博彩平台 #category=gambling
+买球 #category=gambling
+赌球 #category=gambling
+下注 #category=gambling
+返水 #category=gambling
+注册就送 #category=gambling
+免费筹码 #category=gambling
+
+# ===== 兼职诈骗/营销（promo） =====
+日结兼职 #category=promo
+宝妈兼职 #category=promo
+手机兼职 #category=promo
+足不出户 #category=promo
+日入过百 #category=promo
+免费领 #category=promo
+零投资 #category=promo
+躺赚 #category=promo
+带单 #category=promo
+导师带 #category=promo
+
+# ===== 拉丁色情/导流高频词 =====
+onlyfans #category=porn
+only fans #category=porn
+dm me #category=spam
+check my bio #category=spam
+link in bio #category=spam
+click here #category=spam
+free access #category=promo

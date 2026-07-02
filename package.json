@@ -1,0 +1,31 @@
+{
+  "name": "twitter-filter-zcode",
+  "version": "0.1.0",
+  "description": "推特/X 评论区垃圾信息（色情 bot、博彩广告、引流）过滤扩展：本地优先 + 折叠 UI + 多维规则引擎 + 可选 AI 规则挖掘",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "@types/node": "^22.10.0",
+    "@vitest/coverage-v8": "^2.1.8",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "wxt": "^0.19.0"
+  },
+  "dependencies": {
+    "@mlc-ai/web-llm": "^0.2.84"
+  },
+  "optionalDependenciesComment": "@mlc-ai/web-llm 仅 local-webllm 模式需要（本地推理），是可选功能；放 dependencies 是因为 WXT 构建时需要打包进 offscreen chunk"
+}

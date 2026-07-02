@@ -1,0 +1,29 @@
+{
+  "extends": "./.wxt/tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "types": ["chrome", "node"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "~/*": ["./*"],
+      "@@/*": ["./*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "entrypoints/**/*",
+    ".wxt/types/**/*.d.ts",
+    "wxt.config.ts",
+    "vitest.config.ts"
+  ],
+  "exclude": ["node_modules", ".output", "src/**/*.test.ts", "tsconfig.test.json"]
+}
