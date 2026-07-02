@@ -2,6 +2,7 @@
   "name": "twitter-filter-zcode",
   "version": "0.1.0",
   "description": "推特/X 评论区垃圾信息（色情 bot、博彩广告、引流）过滤扩展：本地优先 + 折叠 UI + 多维规则引擎 + 可选 AI 规则挖掘",
+  "license": "MIT",
   "type": "module",
   "private": true,
   "scripts": {
